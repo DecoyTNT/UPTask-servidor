@@ -4,7 +4,7 @@
   "description": "Proyecto de UPTask",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./index.js"
   },
   "author": "Jorge Cristian Madera López",
   "license": "ISC",
