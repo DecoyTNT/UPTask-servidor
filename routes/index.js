@@ -6,9 +6,7 @@ module.exports = function () {
 
     router.get('/', proyectosController.proyectosHome);
 
-    router.get('/nosotros', (req, res) => {
-        res.send('Nosotros');
-    });
+    router.post('/proyectos', proyectosController.nuevoProyecto);
 
     return router;
 }
