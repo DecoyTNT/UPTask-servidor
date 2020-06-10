@@ -11,7 +11,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.5.0",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.12"
+    "sequelize": "^5.21.12",
+    "shortid": "^2.2.15",
+    "slug": "^3.3.0"
   }
 }
