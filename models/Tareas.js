@@ -8,11 +8,12 @@ const Tareas = db.define('Tareas', {
         primaryKey: true,
         autoIncrement: true
     },
-    tarea: {
+    nombre: {
         type: Sequelize.STRING
     },
     estado: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 });
 // Una tarea pertenece a un proyecto
