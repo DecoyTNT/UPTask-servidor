@@ -1,6 +1,23 @@
 const Tareas = require('../models/Tareas');
 const Proyectos = require('../models/Proyectos');
 
+const obtenerTareasProyecto = async (req, res) => {
+    try {
+        const tareas = await Tareas.findAll({
+            where: {
+                proyectoId: req.params.proyectoId
+            }
+        });
+        console.log(tareas);
+        res.json({
+            ok: true,
+            tareas
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const nuevaTarea = async (req, res) => {
     try {
         const { nombre, proyectoId } = req.body;
@@ -33,6 +50,33 @@ const nuevaTarea = async (req, res) => {
     }
 }
 
+const editarTarea = async (req, res) => {
+    try {
+        await Tareas.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        });
+        const tarea = await Tareas.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({
+            ok: true,
+            tarea
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error
+        });
+    }
+}
+
 module.exports = {
-    nuevaTarea
+    obtenerTareasProyecto,
+    nuevaTarea,
+    editarTarea
 }
