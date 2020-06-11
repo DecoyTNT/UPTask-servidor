@@ -28,6 +28,7 @@ module.exports = function () {
     router.get('/tareas/proyecto/:proyectoId', tareasController.obtenerTareasProyecto);
     router.post('/tareas', tareasController.nuevaTarea);
     router.put('/tareas/:id', tareasController.editarTarea);
+    router.delete('/tareas/:id', tareasController.eliminarTarea);
 
     return router;
 }

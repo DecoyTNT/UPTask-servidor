@@ -15,6 +15,10 @@ const obtenerTareasProyecto = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error
+        });
     }
 }
 
@@ -75,8 +79,29 @@ const editarTarea = async (req, res) => {
     }
 }
 
+const eliminarTarea = async (req, res) => {
+    try {
+        await Tareas.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({
+            ok: true,
+            msg: 'Tarea eliminada'
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error
+        });
+    }
+}
+
 module.exports = {
     obtenerTareasProyecto,
     nuevaTarea,
-    editarTarea
+    editarTarea,
+    eliminarTarea
 }
