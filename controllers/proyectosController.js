@@ -1,6 +1,7 @@
 const Proyectos = require('../models/Proyectos');
 
 const obtenerProyectos = async (req, res) => {
+    console.log('Obteniendo proyectos');
     try {
         const proyectos = await Proyectos.findAll();
 

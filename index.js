@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+// const passport = require('./config/passport');
 
 // Crear la conexión a la base de datos
 const db = require('./config/db');
@@ -19,6 +20,8 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use(passport.initialize());
 
 app.use(cors());
 

@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+require('dotenv').config({ path: 'variables.env' });
 
 // Option 1: Passing parameters separately
 const db = new Sequelize('uptask', 'root', 'root', {
