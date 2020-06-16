@@ -1,13 +1,13 @@
-const Usuario = require('../models/Usuarios');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
+const Usuarios = require('../models/Usuarios');
 
 const autenticarUsuario = async (req, res) => {
     const { email, password } = req.body;
 
     try {
 
-        const usuario = await Usuario.findOne({
+        const usuario = await Usuarios.findOne({
             where: {
                 email
             }
@@ -56,6 +56,27 @@ const autenticarUsuario = async (req, res) => {
     }
 }
 
+const usuarioAutenticado = async (req, res) => {
+    try {
+        const usuario = await Usuarios.findOne({
+            where: {
+                id: req.usuario.id
+            }
+        });
+        res.json({
+            ok: true,
+            usuario
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error
+        });
+    }
+}
+
 module.exports = {
-    autenticarUsuario
+    autenticarUsuario,
+    usuarioAutenticado
 }

@@ -49,6 +49,13 @@ const Usuarios = db.define('usuarios', {
 //     return bcrypt.compareSync(password, this.password);
 // }
 
+// Excluir el password, para no retornarlo
+Usuarios.prototype.toJSON = function () {
+    var values = Object.assign({}, this.get());
+
+    delete values.password;
+    return values;
+}
 
 // Un usuario puede crear multiples proyectos
 Usuarios.hasMany(Proyectos);

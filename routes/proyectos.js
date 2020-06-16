@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator/check');
 const proyectosController = require('../controllers/proyectosController');
+const auth = require('../middlewares/auth');
 
-router.get('/', proyectosController.obtenerProyectos);
+router.get('/', auth.authUser, proyectosController.obtenerProyectos);
 
 router.get('/:id', proyectosController.proyectoPorId);
 
