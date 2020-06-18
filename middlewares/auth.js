@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const authUser = (req, res, next) => {
     // Leer el token del header
     const token = req.header('token');
+    console.log(token);
 
     // Revisar si no hay token
     if (!token) {

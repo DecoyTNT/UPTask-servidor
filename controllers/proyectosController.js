@@ -3,7 +3,11 @@ const Proyectos = require('../models/Proyectos');
 const obtenerProyectos = async (req, res) => {
     console.log('Obteniendo proyectos');
     try {
-        const proyectos = await Proyectos.findAll();
+        const proyectos = await Proyectos.findAll({
+            where: {
+                usuarioId: req.usuario.id
+            }
+        });
 
         res.json({
             ok: true,
@@ -23,7 +27,8 @@ const proyectoPorId = async (req, res) => {
     try {
         const proyecto = await Proyectos.findOne({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                usuarioId: req.usuario.id
             }
         });
 
@@ -63,8 +68,9 @@ const nuevoProyecto = async (req, res) => {
             errores
         });
     } else {
+        const usuarioId = req.usuario.id;
         try {
-            const proyecto = await Proyectos.create({ nombre });
+            const proyecto = await Proyectos.create({ nombre, usuarioId });
             res.json({
                 ok: true,
                 proyecto
@@ -100,13 +106,15 @@ const editarProyecto = async (req, res) => {
     try {
         await Proyectos.update(req.body, {
             where: {
-                id: req.params.id
+                id: req.params.id,
+                usuarioId: req.usuario.id
             }
         });
 
         const proyecto = await Proyectos.findOne({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                usuarioId: req.usuario.id
             }
         })
         res.json({

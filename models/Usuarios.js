@@ -33,6 +33,12 @@ const Usuarios = db.define('usuarios', {
                 msg: 'El password es obligatorio'
             }
         }
+    },
+    token: {
+        type: Sequelize.STRING
+    },
+    expiracion: {
+        type: Sequelize.DATE
     }
 },
     {
