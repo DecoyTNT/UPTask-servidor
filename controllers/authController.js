@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const crypto = require('crypto');
 const Usuarios = require('../models/Usuarios');
+const enviarEmail = require('../handlers/email');
 
 const autenticarUsuario = async (req, res) => {
     const { email, password } = req.body;
@@ -80,7 +81,6 @@ const usuarioAutenticado = async (req, res) => {
 }
 
 const enviarToken = async (req, res) => {
-    console.log('Enviar token');
     try {
         const usuario = await Usuarios.findOne({
             where: {
@@ -101,12 +101,18 @@ const enviarToken = async (req, res) => {
         await usuario.save();
 
         // url de reset
-        const resetUrl = `http://localhost:3000/reestablecer/${usuario.token}`;
+        const resetUrl = `http://localhost:3000/reestablecer-password/${usuario.token}`;
+
+        await enviarEmail.enviar({
+            usuario,
+            subject: 'Resetear password',
+            resetUrl
+        });
 
         res.json({
             ok: true,
             usuario
-        })
+        });
 
 
     } catch (error) {

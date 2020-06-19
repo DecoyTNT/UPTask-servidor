@@ -8,7 +8,6 @@ const obtenerTareasProyecto = async (req, res) => {
                 proyectoId: req.params.proyectoId
             }
         });
-        console.log(tareas);
         res.json({
             ok: true,
             tareas

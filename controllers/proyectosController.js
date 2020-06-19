@@ -1,7 +1,6 @@
 const Proyectos = require('../models/Proyectos');
 
 const obtenerProyectos = async (req, res) => {
-    console.log('Obteniendo proyectos');
     try {
         const proyectos = await Proyectos.findAll({
             where: {
@@ -54,54 +53,25 @@ const proyectoPorId = async (req, res) => {
 
 const nuevoProyecto = async (req, res) => {
     const { nombre } = req.body;
+    console.log(req.body);
 
-    let errores = [];
-
-    if (!nombre) {
-        errores.push({ 'texto': 'Agrega un nombre al proyecto' });
-    }
-
-    if (errores.length > 0) {
-        console.log('Error');
-        return res.status(400).json({
-            ok: false,
-            errores
-        });
-    } else {
+    try {
         const usuarioId = req.usuario.id;
-        try {
-            const proyecto = await Proyectos.create({ nombre, usuarioId });
-            res.json({
-                ok: true,
-                proyecto
-            });
-        } catch (error) {
-            return res.status(500).json({
-                ok: false,
-                error
-            })
-        }
+        const proyecto = await Proyectos.create({ nombre, usuarioId });
+        res.json({
+            ok: true,
+            proyecto
+        });
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            error
+        })
     }
 
-    // console.log(nombre);
 }
 
 const editarProyecto = async (req, res) => {
-    const { nombre } = req.body;
-
-    let errores = [];
-
-    if (!nombre) {
-        errores.push({ 'texto': 'Agrega un nombre al proyecto' });
-    }
-
-    if (errores.length > 0) {
-        console.log('Error');
-        return res.status(400).json({
-            ok: false,
-            errores
-        });
-    }
 
     try {
         await Proyectos.update(req.body, {

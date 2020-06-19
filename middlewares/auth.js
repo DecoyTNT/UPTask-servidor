@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const authUser = (req, res, next) => {
     // Leer el token del header
     const token = req.header('token');
-    console.log(token);
 
     // Revisar si no hay token
     if (!token) {
@@ -18,7 +17,7 @@ const authUser = (req, res, next) => {
         req.usuario = cifrado.usuario;
         next();
     } catch (error) {
-        res.status(401).json({
+        return res.status(401).json({
             msg: 'Token no válido'
         });
     }

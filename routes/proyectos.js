@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { body } = require('express-validator/check');
+const { check } = require('express-validator');
 const proyectosController = require('../controllers/proyectosController');
 const auth = require('../middlewares/auth');
+const { validarCampos } = require('../middlewares/validar-campos');
 
 router.get('/',
     auth.authUser,
@@ -15,14 +16,20 @@ router.get('/:id',
 );
 
 router.post('/',
-    auth.authUser,
-    body('nombre').not().isEmpty().trim().escape(),
+    [
+        auth.authUser,
+        check('nombre', 'El nombre del proyecto es obligatorio').not().isEmpty().trim().escape(),
+        validarCampos
+    ],
     proyectosController.nuevoProyecto
 );
 
 router.put('/:id',
-    auth.authUser,
-    body('nombre').not().isEmpty().trim().escape(),
+    [
+        auth.authUser,
+        check('nombre', 'El nombre del proyecto es obligatorio').not().isEmpty().trim().escape(),
+        validarCampos
+    ],
     proyectosController.editarProyecto
 );
 
